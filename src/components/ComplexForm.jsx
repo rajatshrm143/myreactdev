@@ -11,12 +11,14 @@ const ComplexForm = () => {
 
     const inputSubmit = (event) => {
         event.preventDefault();
+        console.log(input);
     }
 
     const inputChange = (event) => {
-        // console.log(event?.target?.value);
+        // console.log(event.target.value);
         // console.log(event?.target?.name);
 
+        const { name, value } = event.target;
         setInput((prevValue) => {
             // console.log(prevValue); // contains the previous data set
             // return {
@@ -28,7 +30,7 @@ const ComplexForm = () => {
 
             // {Just put the Previous Data Set first [...prevValue],
             //  then overlap the latest changed values [event?.target?.name]: event?.target?.value] }
-            return { ...prevValue, [event?.target?.name]: event?.target?.value };
+            return { ...prevValue, [name]: value };
         });
     }
 
@@ -38,7 +40,7 @@ const ComplexForm = () => {
                 <form onSubmit={inputSubmit}>
                     <div>
                         <label>fname : </label>
-                        <input type="text" name="fname" value={input.fname} onChange={inputChange} />
+                        <input type="text" defaultValue={input.fname} name="fname" onChange={inputChange} />
                     </div>
                     <div>
                         <label>lname : </label>

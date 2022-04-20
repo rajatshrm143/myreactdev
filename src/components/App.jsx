@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext } from "react";
 import MultipleElements from './MultipleElements';
 import Fragement from './Fragement';
 import Styling from './Styling';
@@ -12,8 +12,24 @@ import Arraycard from "./Arraycard";
 import UseStateHook from "./UseStateHook";
 import Form from './Form';
 import ComplexForm from './ComplexForm';
+import ContextAPIHook from './ContextAPIHook';
+import UseEffectHook from "./UseEffectHook";
+import AxiosAPI from './AxiosAPI';
+import NavMenu from './NavMenu';
+import ReduxStateMgmt from './ReduxStateMgmt';
+import store from './Redux/store';
+import { Provider } from 'react-redux'; // it connects the redux to react
+import { MuiTypography } from "./MaterialUI/MuiTypography";
+import MuiButton from "./MaterialUI/MuiButton";
+
+const FName = createContext();
+const LName = createContext();
+
+// 'getState()' contains the current value of state & 'subscribe' works as a 'store' change listner
+store.subscribe(() => { console.log(store.getState()) });
 
 function App() {
+
     return (
         <>
             <><MultipleElements /></> {/* returns JSX */}
@@ -64,6 +80,34 @@ function App() {
 
             {/* ComplexForms with multiple input fields in React */}
             <ComplexForm />
+
+            {/* Using Context API to send data directly to child's child component */}
+            {/* Context is treated as custom components & used with Provider to send data */}
+            <FName.Provider value="Rajat">
+                <LName.Provider value="Sharma">
+                    <ContextAPIHook />  {/* Child Component of App (parent) */}
+                </LName.Provider>
+            </FName.Provider>
+
+            {/* Using useEffect Hook, triggered after DOM render and after every DOM update */}
+            <UseEffectHook />
+
+            {/* Using Axios tool to make API calls */}
+            <AxiosAPI />
+
+            {/* Using Routes in React */}
+            <NavMenu />
+
+            {/* Implementing Redux Store */}
+            {/* 'Provider' connects the redux to react, to do so we pass the 'store' as a prop */}
+            <Provider store={store}>
+                <ReduxStateMgmt />
+            </Provider>
+
+            {/* Material UI components */}
+
+            <MuiTypography />
+            <MuiButton />
         </>
     );
 }
@@ -86,3 +130,4 @@ const ShowCondition = () => {
 
 
 export default App;
+export { FName, LName };
